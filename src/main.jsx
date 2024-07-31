@@ -5,6 +5,7 @@ import ErrorPage from './ErrorPage'
 import Contact from './routes/contact/Contact'
 import { contactLoader } from './routes/contact/contactLoader'
 import EditContact from './routes/edit-contact/Edit'
+import { editAction } from './routes/edit-contact/editAction'
 import Root from './routes/root/Root'
 import { rootAction } from './routes/root/rootAction'
 import { rootLoader } from './routes/root/rootLoader'
@@ -31,7 +32,8 @@ const router = createBrowserRouter([
 			{
 				path: 'contacts/:contactId/edit',
 				element: <EditContact />,
-				loader: contactLoader // Loaders should not be shared between routes, we're just being lazy
+				loader: contactLoader, // Loaders should not be shared between routes, we're just being lazy
+				action: editAction
 			}
 		]
 	}
