@@ -31,7 +31,7 @@ createRoot(container).render(
 )
 ```
 
-A basic route consists of two essential properties: a _path_ and an _element_, which indicates the content the router should render when a specific path is matched.
+A basic route consists of two essential properties: a **path** and an **element**, both of them work together to indicate what content the router should render when under a specific path.
 
 The `RouterProvider` functions as an outlet for all routes assigned to it as a `createBrowserRouter` object via the `router` prop.
 
@@ -76,3 +76,109 @@ function Root() {
 ```
 
 The `Outlet` component should be placed inside of the parent component, and will act as a placeholder for nested routes. Child route components will be rendered in its spot.
+
+## Client side routing
+
+It allows our app to update the URL without requesting another document from the server. The app can instead render the new UI immediately.
+
+We have a couple of special components to help us achieve this:
+
+- `<Link>`, used to navigate between different routes. It renders an anchor (`<a>`) element that when clicked, **changes the URL without reloading the page**.
+
+- `<NavLink>`, a specialized version of `Link` that adds styling capabilities based on the active state of the link.
+
+## Loading data
+
+URL segments, layouts and data are more often than not coupled together.
+
+- `/` | `contacts/:id`
+
+Because of this natural coupling, React Router has data conventions to get data into components easily. There are two APIs that are used to load data:
+
+- `Loader`, a function that is built to retrieve the data and is assigned to the `loader` property of the route.
+
+```jsx
+import { getContacts } from '../../contacts'
+
+export const rootLoader = async () => {
+	const contacts = await getContacts()
+	return { contacts }
+}
+```
+
+```jsx
+import { rootLoader } from './routes/Root/rootLoader'
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Root />,
+		// more properties
+		loader: rootLoader
+	}
+])
+```
+
+- `UseLoaderData`, a function that retrieves that data and is used inside the component.
+
+```jsx
+import { Form, Link, Outlet, useLoaderData } from 'react-router-dom'
+
+const Root = () => {
+	const { contacts } = useLoaderData()
+	return(
+		//code
+	)
+}
+```
+
+## Data Writes
+
+HTML forms cause a navigation in the browser, just like clicking a link. The only difference is in the request, as links can only change the URL, while forms can change the request method (GET/POST), as well as the request body (POST form data).
+
+Without client side routing, both of these requests would be sent to the server.
+
+React Router enables us to do these things using client side routing, and sends it to a route `action`.
+
+```jsx
+import { createContact } from '../../contacts'
+
+export const rootAction = async () => {
+	const contact = await createContact()
+	return { contact }
+}
+```
+
+```jsx
+import { rootAction } from './routes/Root/rootAction'
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Root />,
+		// more properties
+		action: rootAction
+	}
+])
+```
+
+Whatever `form` we were using to handle the date, should be turned into a React Router `Form`, which works the same, but prevents the browser from sending the request to the serve and instead sends POST and GET requests to the route's **action**.
+
+**Essentially what we're doing with this is help our app handle form submissions without causing a full page reload.**
+
+React Router also revalidates the data on the page after a `Form` action finishes, which enables all `useLoaderData` hooks to update, and as such keeps UI in sync with data.
+
+## URL Params in Loaders
+
+```jsx
+{
+path: 'contacts/:contactId',
+element: <Contact />
+}
+```
+
+The colon `:` denotes a **dynamic segment**, which will match changing values in that position of the URL. These values are called "URL Params" or `params` for short.
+
+These are passed to the loader with keys that match the dynamic segment. In this example, it would be passed as `params.contactId`.
+
+They are most often used to find a record by id.
