@@ -1,6 +1,6 @@
 import { Form, useLoaderData } from 'react-router-dom'
 
-export default function EditContact() {
+const EditContact = () => {
 	const { contact } = useLoaderData()
 
 	return (
@@ -52,3 +52,5 @@ export default function EditContact() {
 		</Form>
 	)
 }
+
+export default EditContact
