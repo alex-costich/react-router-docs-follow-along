@@ -2,8 +2,11 @@ import * as React from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './ErrorPage'
-import Contact from './routes/Contact'
-import Root from './routes/Root'
+import Contact from './routes/contact/Contact'
+import { contactLoader } from './routes/contact/contactLoader'
+import Root from './routes/root/Root'
+import { rootAction } from './routes/root/rootAction'
+import { rootLoader } from './routes/root/rootLoader'
 import './styles/index.css'
 
 const router = createBrowserRouter([
@@ -12,14 +15,17 @@ const router = createBrowserRouter([
 		path: '/', // Root path
 		element: <Root />, // Root component
 		errorElement: <ErrorPage />, // Error component
+		loader: rootLoader,
+		action: rootAction,
 		children: [
 			/*
                 Whatever components are added as children will render
                 inside the parent component (in this case, Root).
             */
 			{
-				path: 'contacts/:contactId',
-				element: <Contact />
+				path: 'contacts/:contactId', // :contactId is the dynamic segment, and will be accessed through URL Params
+				element: <Contact />,
+				loader: contactLoader
 			}
 		]
 	}
