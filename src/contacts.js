@@ -3,7 +3,6 @@ import { matchSorter } from 'match-sorter'
 import sortBy from 'sort-by'
 
 export async function getContacts(query) {
-	console.log(query)
 	await fakeNetwork(`getContacts:${query}`)
 	let contacts = await localforage.getItem('contacts')
 	if (!contacts) contacts = []
