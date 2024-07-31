@@ -132,7 +132,7 @@ const Root = () => {
 }
 ```
 
-## Data Writes
+## Data writes and updates
 
 HTML forms cause a navigation in the browser, just like clicking a link. The only difference is in the request, as links can only change the URL, while forms can change the request method (GET/POST), as well as the request body (POST form data).
 
@@ -168,6 +168,8 @@ Whatever `form` we were using to handle the date, should be turned into a React 
 
 React Router also revalidates the data on the page after a `Form` action finishes, which enables all `useLoaderData` hooks to update, and as such keeps UI in sync with data.
 
+`Form` components are also used to update data.
+
 ## URL Params in Loaders
 
 ```jsx
@@ -182,3 +184,5 @@ The colon `:` denotes a **dynamic segment**, which will match changing values in
 These are passed to the loader with keys that match the dynamic segment. In this example, it would be passed as `params.contactId`.
 
 They are most often used to find a record by id.
+
+# I honestly stopped writing notes here because I realized I'm just rewriting the React Router docs, so check those out from here on, it's pretty much the same.
