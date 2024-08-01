@@ -85,7 +85,9 @@ We have a couple of special components to help us achieve this:
 
 - `<Link>`, used to navigate between different routes. It renders an anchor (`<a>`) element that when clicked, **changes the URL without reloading the page**.
 
-- `<NavLink>`, a specialized version of `Link` that adds styling capabilities based on the active state of the link.
+- `<NavLink>`, a specialized version of `Link` that adds styling capabilities based on the active state of the link:
+  - `isActive`: when the user is at the URL
+  - `isPending`: when it's about to be active (data is still loading)
 
 ## Loading data
 
