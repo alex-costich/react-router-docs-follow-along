@@ -4,12 +4,14 @@ import {
 	NavLink,
 	Outlet,
 	useLoaderData,
-	useNavigation
+	useNavigation,
+	useSubmit
 } from 'react-router-dom'
 
 const Root = () => {
 	const { contacts, q } = useLoaderData()
 	const navigation = useNavigation()
+	const submit = useSubmit()
 	/*
 		useNavigation returns current navigation state ('idle'/'submitting'/'loading') 
 		through these states we can manipulate the component, add loading circles, fades,
@@ -33,6 +35,9 @@ const Root = () => {
 							type='search'
 							name='q'
 							defaultValue={q}
+							onChange={e => {
+								submit(e.currentTarget.form)
+							}}
 						/>
 						{/* 
 							Because this is a GET, not a POST, React Router does not call the action. Submitting a GET
