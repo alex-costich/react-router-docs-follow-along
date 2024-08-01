@@ -23,31 +23,40 @@ const router = createBrowserRouter([
 		loader: rootLoader,
 		action: rootAction,
 		children: [
-			/*
-                Whatever components are added as children will render
-                inside the parent component (in this case, Root).
-            */
-			{ index: true, element: <Index /> },
-			/*
-				index tells the router to match and render this route when the user
-				is at the parent route's exact path
-			*/
 			{
-				path: 'contacts/:contactId', // :contactId is the dynamic segment, and will be accessed through URL Params
-				element: <Contact />,
-				loader: contactLoader,
-				action: contactAction
-			},
-			{
-				path: 'contacts/:contactId/edit',
-				element: <EditContact />,
-				loader: contactLoader, // Loaders should not be shared between routes, we're just being lazy
-				action: editAction
-			},
-			{
-				path: 'contacts/:contactId/destroy',
-				errorElement: <div>Oops! There was an error.</div>,
-				action: destroyAction
+				/*
+				Whatever components are added as children will render
+				inside the parent component (in this case, Root).
+				*/
+				errorElement: <ErrorPage />, // Pathless route
+				/*
+				When any errors are thrown in the child routes, the pathless
+				route will catch it and render, preserving the root route's UI!
+				*/
+				children: [
+					{ index: true, element: <Index /> },
+					/*
+					index tells the router to match and render this route when the user
+					is at the parent route's exact path
+					*/
+					{
+						path: 'contacts/:contactId', // :contactId is the dynamic segment, and will be accessed through URL Params
+						element: <Contact />,
+						loader: contactLoader,
+						action: contactAction
+					},
+					{
+						path: 'contacts/:contactId/edit',
+						element: <EditContact />,
+						loader: contactLoader, // Loaders should not be shared between routes, we're just being lazy
+						action: editAction
+					},
+					{
+						path: 'contacts/:contactId/destroy',
+						errorElement: <div>Oops! There was an error.</div>,
+						action: destroyAction
+					}
+				]
 			}
 		]
 	}
