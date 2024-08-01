@@ -97,7 +97,7 @@ URL segments, layouts and data are more often than not coupled together.
 
 Because of this natural coupling, React Router has data conventions to get data into components easily. There are two APIs that are used to load data:
 
-- `Loader`, a function that is built to retrieve the data and is assigned to the `loader` property of the route.
+- `Loader`, a function that is built to retrieve data (handle GET requests) and is assigned to the `loader` property of the route.
 
 ```jsx
 import { getContacts } from '../../contacts'
@@ -134,6 +134,10 @@ const Root = () => {
 }
 ```
 
+### POST -> REQUESTS TO ACTION
+
+### GET -> REQUESTS TO LOADER
+
 ## Data writes and updates
 
 HTML forms cause a navigation in the browser, just like clicking a link. The only difference is in the request, as links can only change the URL, while forms can change the request method (GET/POST), as well as the request body (POST form data).
@@ -164,7 +168,11 @@ const router = createBrowserRouter([
 ])
 ```
 
-Whatever `form` we were using to handle the date, should be turned into a React Router `Form`, which works the same, but prevents the browser from sending the request to the serve and instead sends POST and GET requests to the route's **action**.
+Whatever `form` we were using to handle the date, should be turned into a React Router `Form`, which works the same, but prevents the browser from sending the request to the server, and instead sends requests to the route's **action** or **loader** depending on the method.
+
+### POST -> REQUESTS TO ACTION
+
+### GET -> REQUESTS TO LOADER
 
 **Essentially what we're doing with this is help our app handle form submissions without causing a full page reload.**
 
