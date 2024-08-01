@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './ErrorPage'
 import Contact from './routes/contact/Contact'
+import { contactAction } from './routes/contact/contactAction'
 import { contactLoader } from './routes/contact/contactLoader'
 import { destroyAction } from './routes/destroy-contact/destroyContact'
 import EditContact from './routes/edit-contact/Edit'
@@ -34,7 +35,8 @@ const router = createBrowserRouter([
 			{
 				path: 'contacts/:contactId', // :contactId is the dynamic segment, and will be accessed through URL Params
 				element: <Contact />,
-				loader: contactLoader
+				loader: contactLoader,
+				action: contactAction
 			},
 			{
 				path: 'contacts/:contactId/edit',
