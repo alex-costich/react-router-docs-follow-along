@@ -1,3 +1,5 @@
-# React + Vite
+# This is a React Router docs follow-along
 
-This template provides a minimal setup to get React working in Vite with HMR, Prettier, and ESLint.
+Structure is mostly the same but changes in syntax and file structure were made for better readability. Also added a lot of comments and a synthesized version of the tutorial documentation in `notes\basics.md`.
+
+_source: [https://reactrouter.com/en/main]_
