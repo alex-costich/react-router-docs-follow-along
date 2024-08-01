@@ -2,8 +2,11 @@ import { useFetcher } from 'react-router-dom'
 
 const Favorite = ({ favorite }) => {
 	const fetcher = useFetcher()
+
+	const isFavorite = fetcher.formData
 		? fetcher.formData.get('favorite') === 'true'
 		: favorite
+
 	/* 
 	Use fetcher hook allows us to communicate with loaders and actions without causing a navigation.
 
@@ -16,10 +19,10 @@ const Favorite = ({ favorite }) => {
 		<fetcher.Form method='post'>
 			<button
 				name='favorite'
-				value={favorite ? 'false' : 'true'}
-				aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+				value={isFavorite ? 'false' : 'true'}
+				aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
 			>
-				{favorite ? '★' : '☆'}
+				{isFavorite ? '★' : '☆'}
 			</button>
 		</fetcher.Form>
 	)
